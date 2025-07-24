@@ -1,0 +1,21 @@
+FROM mcr.microsoft.com/devcontainers/base:ubuntu
+
+# Install SQL Server prerequisites
+RUN apt-get update && \
+    apt-get install -y curl gnupg && \
+    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+    curl https://packages.microsoft.com/config/ubuntu/20.04/mssql-server-2019.list \
+        > /etc/apt/sources.list.d/mssql-server.list && \
+    apt-get update && \
+    apt-get install -y mssql-server
+
+# Install command-line tools
+RUN apt-get install -y mssql-tools unixodbc-dev
+
+# Set up environment variables
+ENV ACCEPT_EULA=Y
+ENV SA_PASSWORD=YourStrong!Passw0rd
+ENV MSSQL_PID=Express
+
+# Start SQL Server
+CMD ["/opt/mssql/bin/sqlservr"]
