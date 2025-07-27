@@ -3,12 +3,11 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": "echo 'SQL Server is ready!'",
+  "forwardPorts": [1433],
+  "postCreateCommand": "echo 'SQL Server ready!'",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "ms-mssql.mssql"
-      ]
+      "extensions": ["ms-mssql.mssql"]
     }
-}
+  }
 }
